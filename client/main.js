@@ -1,22 +1,21 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import { Meteor } from 'meteor/meteor';
+import React from 'react';
+import { render } from 'react-dom';
+import { Router, browserHistory } from 'react-router';
 
-import './main.html';
+import ApolloClient from 'apollo-client';
+import { meteorClientConfig } from 'meteor/apollo';
+import { ApolloProvider } from 'react-apollo';
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
-});
+import AppRoutes from './routes.js';
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-});
+const client = new ApolloClient(meteorClientConfig());
 
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
+Meteor.startup(() => {
+  render(
+    <ApolloProvider client={client}>
+      <Router routes={AppRoutes} history={browserHistory} />
+    </ApolloProvider>,
+    document.getElementById('app')
+  );
 });
