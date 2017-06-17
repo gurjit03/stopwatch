@@ -1,8 +1,10 @@
+import MainLayout from '../imports/ui/layouts/main-layout.jsx';
 import StopWatch from '../imports/ui/components/stopwatch.jsx';
 
-const AppRoutes = {
+const Routes = {
   path: '/',
-  component: StopWatch,
-};
+  component: MainLayout,
+  indexRoute: {component: StopWatch},
+}
 
-export default AppRoutes;
+export default Routes;
