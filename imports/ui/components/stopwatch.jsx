@@ -1,5 +1,9 @@
 import React,{Component} from 'react';
+import { gql, graphql } from 'react-apollo';
+import fileSaver from 'file-saver';
+
 import Controls from './controls.jsx';
+import Modal from './modal.jsx'
 
 export default class StopWatch extends Component {
   constructor(props) {
@@ -15,6 +19,19 @@ export default class StopWatch extends Component {
     this.handleResetAction = this.handleResetAction.bind(this);
     this.displayTimeInProperFormat = this.displayTimeInProperFormat.bind(this);
     this.attachZero = this.attachZero.bind(this);
+    this.exportTheSplitsFile = this.exportTheSplitsFile.bind(this);
+  }
+  exportTheSplitsFile() {
+    console.log(fileSaver);
+    let data = [`Index ---  Interval \n`];
+    this.state.splits.forEach((splitTime,index) => {
+      const timeInProperFormat = this.displayTimeInProperFormat(splitTime);
+      data.push(`${index} --- ${timeInProperFormat}\n`);
+    })
+    data.push('-------------------------------');
+    console.log(data,"data");
+    const f = new File(data, "stopwatch.txt",{type: "text/plain", lastModified: new Date()})
+    fileSaver.saveAs(f);
   }
   handleClickStartStopBtn() {
     if(this.state.stopWatchState == 'stop') {
@@ -105,8 +122,9 @@ export default class StopWatch extends Component {
               )
             })}
           </ol>
+          {this.state.splits.length > 0 ? <button className="export-as-txt" onClick={this.exportTheSplitsFile}>Export as txt</button> : ''}
+          {this.state.splits.length > 0 ? <button className="share-url" onClick={this.shareUrl}>share url</button> : ''}
       </div>
-
     )
   }
 }

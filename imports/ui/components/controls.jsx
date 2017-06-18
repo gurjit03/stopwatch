@@ -31,10 +31,15 @@ export default class Controls extends Component {
     this.props.onClickResetBtn();
   }
   render() {
+    const startStopBtn = this.state.startStopBtn;
     return (
       <div className="stopwatch-control-wrapper">
-        <div className="stopwatch-control start-stop" onClick={this.clickStartStopBtn}> start-stop </div>
-        <div className="stopwatch-control split" disabled="true" onClick={this.clickSplitBtn}>split</div>
+        <div className="stopwatch-control start-stop" onClick={this.clickStartStopBtn}>
+          {startStopBtn ? <div className="stopwatch-stop"></div> :<div className="stopwatch-start"></div> }
+        </div>
+        { startStopBtn ? <div className="stopwatch-control split" onClick={this.clickSplitBtn}>split</div>
+      : <div className="stopwatch-control split disabled" disabled={true}>split</div>
+        }
         <div className="stopwatch-control reset" onClick={this.clickResetBtn}>Reset</div>
       </div>
     )

@@ -1,0 +1,52 @@
+$stopwatch-dim: 60px;
+
+.stopwatch-control {
+    &-wrapper {
+      @include add-flex();
+    }
+    width: $stopwatch-dim;
+    height: $stopwatch-dim;
+    line-height: $stopwatch-dim;
+    text-align: center;
+    margin: 5px;
+    border: 2px solid $theme-border-color;
+    border-radius: 50%;
+    background-color: $theme-color;
+    color: white;
+    cursor: pointer;
+    transition: all .2s ease-in;
+    &:hover {
+      background-color: $theme-border-color;
+    }
+}
+
+.disabled {
+  background-color: $disabled;
+  border:2px solid $disabled;
+  color: $black;
+  transition: none;
+  &:hover {
+    background-color: $disabled;
+  }
+}
+
+
+.start-stop {
+  @include add-flex(row,center,center);
+}
+.stopwatch-start, .stopwatch-stop {
+  transition: all .2s ease-in-out;
+}
+.stopwatch-start {
+  width: 0;
+  height: 0;
+  transform: translateX(37.5%);
+  border: 10px solid transparent;
+  border-left-color: white;
+}
+
+.stopwatch-stop {
+  width: 15px;
+  height: 15px;
+  background-color: white;
+}

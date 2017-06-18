@@ -1,0 +1,10 @@
+@import "../node_modules/normalize-scss/sass/_normalize.scss";
+@import "../imports/ui/styles/global.scss";
+
+// GLOBAL STYLES
+@import '../imports/ui/styles/mixins.scss';
+@import '../imports/ui/styles/variables.scss';
+
+// COMPONENT STYLES
+@import '../imports/ui/styles/controls.scss';
+@import '../imports/ui/styles/modal.scss';
